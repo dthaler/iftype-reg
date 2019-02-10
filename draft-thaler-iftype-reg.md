@@ -2,7 +2,7 @@
 title: Guidelines and Registration Procedures for Interface Types
 abbrev: ifType Guidelines
 docname: draft-thaler-iftype-reg-00
-category: info
+category: std
 
 ipr: trust200902
 area: Internet
