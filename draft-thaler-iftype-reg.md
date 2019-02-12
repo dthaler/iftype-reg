@@ -32,7 +32,7 @@ author:
        organization: Independent
        email: dromasca@gmail.com
 
-normative:
+informative:
   ifType:
     author:
       org: IANA
@@ -63,7 +63,7 @@ by those who are defining, registering, or evaluating those definitions.
 --- middle
 
 
-#  Introduction
+# Introduction {#intro}
 
 The IANA IfType-MIB was originally defined in {{?RFC1573}} as a separate MIB
 module together with the Interfaces Group MIB (IF-MIB) module.  The IF-MIB has
@@ -83,14 +83,50 @@ as parts of a unique identifier of a data model, if any, for a given
 interface type (e.g., in an OID), or simply as values exposed by local
 APIs or UI on a device.
 
-## Interface Sub-Layers and Sub-Types
+# Terminology
 
-An ifType each sub-layer can be represented by its own
-row in the ifTable, with the ifStackTable being used to identify the
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+"SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY",
+and "OPTIONAL" in this document are to be interpreted as described
+in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear
+in all capitals, as shown here.
+
+# Problems
+
+This document addresses the following issues:
+
+1. As noted in {{intro}}, the former guidance was written with wording
+   specific to MIB modules, and accordingly some confusion has resulted
+   when using YANG modules.  This document clarifies that ifTypes are
+   independent from the type of, or even existence of, a data model.
+
+2. The use of, and requirements around, sub-layers and sub-types
+   are not well understood even though good examples of both exist.
+   This is discussed in {{sublayers}}.
+
+3. Transmission values {{ifType}} have often been allocated as part
+   of ifType allocation, but no guidance exists about whether a requester
+   must ask for it or not, and the request form has no such required field.
+   As a result, IANA has asked the Designated Expert to answer this, but
+   no relevant guidance for the Designated Expert has been documented.
+   This is discussed in {{transmission}}.
+
+4. Various documents and registries say to submit requests via email,
+   but a web form exists for submitting requests, which has caused
+   some confusion around which is to be used.  This is discussed
+   in {{iana}}.
+
+# Interface Sub-Layers and Sub-Types {#sublayers}
+
+When multiple sub-layers exist below the network layer,
+each sub-layer can be represented by its own
+row in the ifTable with its own ifType, with the ifStackTable being used to identify the
 upward and downward multiplexing relationships between rows.
 Section 3.1.1 of {{RFC2863}} provides more discussion, and Section
 3.1.2 of that RFC provides guidance for defining interface
-sub-layers.
+sub-layers. More recent experience shows that these guidelines are
+phrased in a way that is now too restrictive, since at the time
+{{RFC2863}} was written, MIB modules were the dominant data model.
 
 This document clarifies that such guidance also applies to YANG modules.
 
@@ -132,21 +168,14 @@ specific information (i.e., a lower sub-layer or a subtype), as well
 as the Designated Expert that must review requests for any such
 ifTypes or sub-types.
 
-# Terminology
-
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-"SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY",
-and "OPTIONAL" in this document are to be interpreted as described
-in BCP 14 {{!RFC2119}} {{!RFC8174}} when, and only when, they appear
-in all capitals, as shown here.
-
-
 # Registration
 
 The IANA policy (using terms defined in {{!RFC5226}}) for registration is
 Expert Review.  The role of the Designated Expert in the procedure is to
 raise possible concerns about wider implications of proposals for use and
-deployment of interface types.  Nothing in the procedure empowers the
+deployment of interface types.  While it is recommended for the responsible
+Area Director and the IESG to take into consideratoin the Designated
+Expert opinions, nothing in the procedure empowers the
 Designated Expert to override properly arrived-at IETF or working group
 consensus.
 
@@ -154,16 +183,18 @@ consensus.
 
 Someone wishing to register a new ifType value MUST:
 
-QUESTION (TBD): should this talk about email or using the online form or
-allow either? Currently IANA pages are contradictory as noted in the IANA
-considerations section.  The following text is borrowed from RFC 7595 which
-uses email, but IANA has a form for ifTypes so this may be the wrong language.
+1. Check the IANA registry to see whether there is already an entry that could
+   easily satisfy the modeling and functional requirements for the requested entry.
+   If there is already such an entry, use it or update the existing specification.
+   Text in an Internet-Draft, or part of some other some other permanently
+   available, stable specification may be written to clarify the usage of an
+   existing entry or entries for the desired purpose.
 
-1. Check the IANA registry to see whether there is already an entry for
-   the desired name.  if there is already an entry under the name, choose
-   a different name or update the existing specification.
+2. Check the IANA registry to see whether there is already some other entry with
+   the desired name.  if there is already an unrelated entry under the name, choose
+   a different name.
 
-2. Prepare a registration request using the template specified in {{template}}.
+3. Prepare a registration request using the template specified in {{template}}.
    The registration request can be contained in an Internet-Draft, submitted
    alone, or as part of some other permanently available, stable,
    specification.  The registration request can also be submitted in some
@@ -171,8 +202,8 @@ uses email, but IANA has a form for ifTypes so this may be the wrong language.
    but the registration request will be treated as an "IETF Contribution"
    under the guidelines of {{!RFC5378}}.
 
-3. Submit the registration request (or pointer to document containing it)
-   to IANA at iana@iana.org.
+4. Submit the registration request (or pointer to document containing it)
+   to IANA at iana@iana.org or via the web form at <https://www.iana.org/form/iftype>.
 
 Upon receipt of a registration request, the following steps MUST be followed:
 
@@ -197,7 +228,7 @@ Upon receipt of a registration request, the following steps MUST be followed:
    if desired, or the IESG can override the Designated Expert and approve
    it per the process in Section 5.3 of {{RFC5226}}.
 
-## Media-specific OID-subtree assignments
+## Media-specific OID-subtree assignments {#transmission}
 
 The current ianaiftype-mib notes:
 
@@ -231,7 +262,7 @@ This template describes the fields that MUST be supplied in a registration reque
 suitable for adding to the registry:
 
 Label for IANA ifType requested:
-  As explained in Section 7.1.1 of {{!RFC2578}}, a label for a named-number enumeration
+: As explained in Section 7.1.1 of {{!RFC2578}}, a label for a named-number enumeration
   must consist of one or more letters or digits, up to a maximum of 64 characters, and 
   the initial character must be a lower-case letter. (However, labels longer than 32 
   characters are not recommended.) Note that hyphens are not allowed.
@@ -239,11 +270,9 @@ Label for IANA ifType requested:
 Name of IANA ifType requested:
 : A short description (e.g., a protocol name), suitable to appear in a comment in the registry.
 
-QUESTION: should it ask if a Transmission Group value is also needed? Or should we just
-always allocate one regardless?
-
 Description of the proposed use of the IANA ifType:
-: Requesters MUST include answers to the following questions in the explanation
+: Requesters MUST include answers, either directly or via a link to some document
+  with the answers, to the following questions in the explanation
   of the proposed use of the IANA IfType: 
 
   * How would IP run over your ifType? 
@@ -255,13 +284,17 @@ Description of the proposed use of the IANA ifType:
     name or acronym is xxx, then the ifType label would be something like
     xxxSomeIfTypeLabel.) 
 
+  * (ADDED) Would your ifType require or allow vendor-specific extensions?  If so,
+    would the vendor use their own ifType in sub-layer below the requested ifType,
+    or a sub-type of the ifType, or some other mechanism?
+
 Reference, Internet-Draft, or Specification:
 : A link to some document is required.
 
 Additional information or comments:
 : Optionally any additional comments for IANA or the Designated Expert.
 
-# IANA Considerations
+# IANA Considerations {#iana}
 
 This entire document is about IANA considerations.  
 
