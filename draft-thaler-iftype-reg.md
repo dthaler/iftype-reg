@@ -105,14 +105,20 @@ This document addresses the following issues:
    are not well understood even though good examples of both exist.
    This is discussed in {{sublayers}}.
 
-3. Transmission values {{ifType}} have often been allocated as part
+3. The registry is kept in the format of MIB and YANG modules, but
+   there was no process guidance written to check that updates were
+   syntactically correct, which led to the registry having syntax errors
+   that broke tools.  {{procedures}} adds a validation step to the
+   documented assignment procedure.
+
+4. Transmission values {{ifType}} have often been allocated as part
    of ifType allocation, but no guidance exists about whether a requester
    must ask for it or not, and the request form has no such required field.
    As a result, IANA has asked the Designated Expert to answer this, but
    no relevant guidance for the Designated Expert has been documented.
    This is discussed in {{transmission}}.
 
-4. Various documents and registries say to submit requests via email,
+5. Various documents and registries say to submit requests via email,
    but a web form exists for submitting requests, which has caused
    some confusion around which is to be used.  This is discussed
    in {{iana}}.
