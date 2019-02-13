@@ -3,6 +3,7 @@ title: Guidelines and Registration Procedures for Interface Types
 abbrev: ifType Guidelines
 docname: draft-thaler-iftype-reg-00
 category: std
+updates: 2863
 
 ipr: trust200902
 area: Internet
@@ -37,7 +38,7 @@ informative:
     author:
       org: IANA
     title: "ifType definitions"
-    date: 2019-02-08
+    date: 2019-02-12
     target: https://www.iana.org/assignments/smi-numbers/smi-numbers.xhtml#smi-numbers-5
   IANAifType-MIB:
     author:
