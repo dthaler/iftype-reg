@@ -1,7 +1,7 @@
 ---
 title: Guidelines and Registration Procedures for Interface Types
 abbrev: ifType Guidelines
-docname: draft-thaler-iftype-reg-00
+docname: draft-thaler-iftype-reg-01
 category: std
 updates: 2863
 
@@ -55,10 +55,10 @@ informative:
 
 --- abstract
 
-The registration and use of Interface Types ("ifType" values) predated
+The registration and use of interface types ("ifType" values) predated
 the use of IANA Considerations sections and YANG modules, and so
-confusion has arisen about the ifType allocation process.  This document provides
-updated guidelines for the definition of new Interface Types, for consideration
+confusion has arisen about the interface type allocation process.  This document provides
+updated guidelines for the definition of new interface types, for consideration
 by those who are defining, registering, or evaluating those definitions.
 
 --- middle
@@ -67,20 +67,20 @@ by those who are defining, registering, or evaluating those definitions.
 # Introduction {#intro}
 
 The IANA IfType-MIB was originally defined in {{?RFC1573}} as a separate MIB
-module together with the Interfaces Group MIB (IF-MIB) module.  The IF-MIB has
-been updated and is currently specified in {{!RFC2863}}, but this latest IF-MIB
+module together with the Interfaces Group MIB (IF-MIB) module.  The IF-MIB module has
+since been updated and is currently specified in {{!RFC2863}}, but this latest IF-MIB
 RFC no longer contains the IANA IfType-MIB. Instead, the IANA IfType-MIB is
 now maintained as a separate module.  Similarly, {{?RFC7224}} created an initial
-INANA Interface Type YANG Module, but the current version is maintained by IANA.
+INANA Interface Type YANG Module, and the current version is maintained by IANA.
 
 The current IANA IfType registries are in {{iana-if-type}}, {{IANAifType-MIB}},
 and {{ifType}}.
 
 Although the ifType registry was originally defined in a MIB module,
-the assignment and use of ifType values are not tied to MIB modules
-or any other management mechanism.  Interface Type values can be used
+the assignment and use of interface type values are not tied to MIB modules
+or any other management mechanism.  Interface type values can be used
 as values of data model objects (MIB objects, YANG objects, etc.),
-as parts of a unique identifier of a data model, if any, for a given
+as parts of a unique identifier of a data model for a given
 interface type (e.g., in an OID), or simply as values exposed by local
 APIs or UI on a device.
 
@@ -114,9 +114,9 @@ This document addresses the following issues:
 4. Transmission values {{ifType}} have often been allocated as part
    of ifType allocation, but no guidance exists about whether a requester
    must ask for it or not, and the request form has no such required field.
-   As a result, IANA has asked the Designated Expert to answer this, but
-   no relevant guidance for the Designated Expert has been documented.
-   This is discussed in {{transmission}}.
+   As a result, IANA has asked the Designated Expert to decide for each
+   allocation, but no relevant guidance for the Designated Expert has been
+   documented. This is discussed in {{transmission}}.
 
 5. Various documents and registries say to submit requests via email,
    but a web form exists for submitting requests, which has caused
@@ -137,7 +137,7 @@ phrased in a way that is now too restrictive, since at the time
 
 This document clarifies that such guidance also applies to YANG modules.
 
-Some ifTypes define sub-types.  For example, the tunnel(131) ifType
+Some ifTypes may define sub-types.  For example, the tunnel(131) ifType
 defines sub-types, where each IANAtunnelType can have its own MIB and/or YANG
 module with protocol-specific information, but there is enough in common
 that some information is exposed in a generic IP Tunnel MIB corresponding
@@ -151,10 +151,10 @@ and {{?RFC5066}} section 3.1.1.
 
 Definers of sub-layers and sub-types should consider which model is more
 appropriate for their needs.  A sub-layer is generally used whenever
-either a dynamic relationship (i.e., which instances layer over which other instances
+either a dynamic relationship exists (i.e., which instances layer over which other instances
 can change over time) or a multiplexing relationship exists with another sub-layer.
 A sub-type can be used when neither of these are true, but where one interface
-type data is conceptually a subclass of another interface type, as far
+type is conceptually a subclass of another interface type, as far
 as a management data model is concerned.
 
 PROPOSED CLARIFICATION/ELABORATION:
@@ -180,8 +180,8 @@ ifTypes or sub-types.
 The IANA policy (using terms defined in {{!RFC5226}}) for registration is
 Expert Review.  The role of the Designated Expert in the procedure is to
 raise possible concerns about wider implications of proposals for use and
-deployment of interface types.  While it is recommended for the responsible
-Area Director and the IESG to take into consideratoin the Designated
+deployment of interface types.  While it is recommended that the responsible
+Area Director and the IESG take into consideration the Designated
 Expert opinions, nothing in the procedure empowers the
 Designated Expert to override properly arrived-at IETF or working group
 consensus.
@@ -193,12 +193,12 @@ Someone wishing to register a new ifType value MUST:
 1. Check the IANA registry to see whether there is already an entry that could
    easily satisfy the modeling and functional requirements for the requested entry.
    If there is already such an entry, use it or update the existing specification.
-   Text in an Internet-Draft, or part of some other some other permanently
+   Text in an Internet-Draft, or part of some other permanently
    available, stable specification may be written to clarify the usage of an
    existing entry or entries for the desired purpose.
 
 2. Check the IANA registry to see whether there is already some other entry with
-   the desired name.  if there is already an unrelated entry under the name, choose
+   the desired name.  If there is already an unrelated entry under the name, choose
    a different name.
 
 3. Prepare a registration request using the template specified in {{template}}.
@@ -225,7 +225,7 @@ Upon receipt of a registration request, the following steps MUST be followed:
 
 4. Once the Designated Expert approves registration, IANA updates {{ifType}},
    {{IANAifType-MIB}}, and {{iana-if-type}} to show the registration.
-   When adding values to the ianaiftype-mib, IANA should verify that the updated
+   When adding values to the IANAifType-MIB, IANA should verify that the updated
    MIB module is syntactically correct before publishing the update.  There are
    various existing tools or web sites that can be used to do this verification.
 
@@ -237,7 +237,7 @@ Upon receipt of a registration request, the following steps MUST be followed:
 
 ## Media-specific OID-subtree assignments {#transmission}
 
-The current ianaiftype-mib notes:
+The current IANAifType-MIB notes:
 
 >   The relationship between the assignment of ifType
 >   values and of OIDs to particular media-specific MIBs
@@ -250,6 +250,8 @@ The current ianaiftype-mib notes:
 >   specific relationship between ifType values and
 >   transmission subtree OIDs.
 
+The following change is proposed:
+
 CURRENT: For every ifType registration, the corresponding transmission 
 number value should be registered or marked "Reserved."
 
@@ -261,7 +263,9 @@ RATIONALE: (1) This saves effort in the future since if a transmission number
 is later needed, no IANA request is needed that would then require another
 Expert Review. (2) The transmision numbering space is not scarce, so there seems
 little need to reserve the number for a different purpose than what the ifType
-is for.
+is for. (3) The Designated Expert need not review whether a transmission
+number value should be registered when processing each ifType request, thus
+reducing the possibility of delaying assignment of ifType values.
 
 ## Registration Template {#template}
 
