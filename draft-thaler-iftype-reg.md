@@ -1,7 +1,7 @@
 ---
-title: Guidelines and Registration Procedures for Interface Types
+title: Guidelines and Registration Procedures for Interface Types and Tunnel Types
 abbrev: ifType Guidelines
-docname: draft-thaler-iftype-reg-01
+docname: draft-thaler-iftype-reg-03
 category: std
 updates: 2863
 
@@ -38,7 +38,7 @@ informative:
     author:
       org: IANA
     title: "ifType definitions"
-    date: 2019-02-12
+    date: 2019-06-25
     target: https://www.iana.org/assignments/smi-numbers/smi-numbers.xhtml#smi-numbers-5
   IANAifType-MIB:
     author:
@@ -52,13 +52,40 @@ informative:
     title: "iana-if-type YANG Module"
     date: 2019-02-08
     target: http://www.iana.org/assignments/iana-if-type
+  iana-tunnel-type:
+    author:
+      org: IANA
+    title: "iana-tunnel-type YANG Module"
+    date: 2019-06-25
+    target: https://www.iana.org/assignments/iana-tunnel-type
+  protocol-registries:
+    author:
+      org: IANA
+    title: "Protocol Registries"
+    date: 2019-06-25
+    target: https://www.iana.org/protocols
+  tunnelType:
+    author:
+      org: IANA
+    title: "tunnelType definitions"
+    date: 2019-06-25
+    target: https://www.iana.org/assignments/smi-numbers/smi-numbers.xhtml#smi-numbers-6
+  transmission:
+    author:
+      org: IANA
+    title: "transmission definitions"
+    date: 2019-06-25
+    target: https://www.iana.org/assignments/smi-numbers/smi-numbers.xhtml#smi-numbers-7
 
 --- abstract
 
 The registration and use of interface types ("ifType" values) predated
 the use of IANA Considerations sections and YANG modules, and so
-confusion has arisen about the interface type allocation process.  This document provides
-updated guidelines for the definition of new interface types, for consideration
+confusion has arisen about the interface type allocation process.  
+Tunnel types were then added later, with the same requirements and allocation policy as
+interface types.
+This document provides
+updated guidelines for the definition of new interface types and tunnel types, for consideration
 by those who are defining, registering, or evaluating those definitions.
 
 --- middle
@@ -71,10 +98,10 @@ module together with the Interfaces Group MIB (IF-MIB) module.  The IF-MIB modul
 since been updated and is currently specified in {{!RFC2863}}, but this latest IF-MIB
 RFC no longer contains the IANA IfType-MIB. Instead, the IANA IfType-MIB is
 now maintained as a separate module.  Similarly, {{?RFC7224}} created an initial
-INANA Interface Type YANG Module, and the current version is maintained by IANA.
+IANA Interface Type YANG Module, and the current version is maintained by IANA.
 
-The current IANA IfType registries are in {{iana-if-type}}, {{IANAifType-MIB}},
-and {{ifType}}.
+The current IANA IfType registry is in {{iana-if-type}}, {{ifType}}, and the IANAifType textual
+convention at {{IANAifType-MIB}}.
 
 Although the ifType registry was originally defined in a MIB module,
 the assignment and use of interface type values are not tied to MIB modules
@@ -83,6 +110,11 @@ as values of data model objects (MIB objects, YANG objects, etc.),
 as parts of a unique identifier of a data model for a given
 interface type (e.g., in an OID), or simply as values exposed by local
 APIs or UI on a device.
+
+The TUNNEL-MIB was originally defined in {{?RFC2667}} (now obsoleted by {{?RFC4087}})
+which created an IANAtunnelType registry ({{tunnelType}} and the IANAtunnelType textual
+convention at {{IANAifType-MIB}}) and defined the assignment policy
+for IANAtunnelType values to always be identical to the policy for assigning ifType values.
 
 # Terminology
 
@@ -98,28 +130,33 @@ This document addresses the following issues:
 
 1. As noted in {{intro}}, the former guidance was written with wording
    specific to MIB modules, and accordingly some confusion has resulted
-   when using YANG modules.  This document clarifies that ifTypes are
+   when using YANG modules.  This document clarifies that ifTypes and tunnelTypes are
    independent from the type of, or even existence of, a data model.
 
 2. The use of, and requirements around, sub-layers and sub-types
    are not well understood even though good examples of both exist.
    This is discussed in {{sublayers}}.
 
-3. The registry is kept in the format of MIB and YANG modules, but
-   there was no process guidance written to check that updates were
-   syntactically correct, which led to the registry having syntax errors
+3. Since the ifType and tunnelType registries were originally defined, and are
+   still retrievable in the format of MIB modules (in addition to other formats),
+   confusion arose when adding YANG modules as another format, as to whether
+   each format is a separate registry.  This is discussed in {{formats}}.
+
+4. The registries are retrievable in the format of MIB and YANG modules, but
+   there was no process guidance written to check that the formats were
+   syntactically correct as updates were made, which led to the registry having syntax errors
    that broke tools.  {{procedures}} adds a validation step to the
    documented assignment procedure.
 
-4. Transmission values {{ifType}} have often been allocated as part
-   of ifType allocation, but no guidance exists about whether a requester
+5. Transmission values {{transmission}} have often been allocated as part
+   of ifType {{ifType}} allocation, but no guidance exists about whether a requester
    must ask for it or not, and the request form has no such required field.
    As a result, IANA has asked the Designated Expert to decide for each
    allocation, but no relevant guidance for the Designated Expert has been
-   documented. This is discussed in {{transmission}}.
+   documented. This is discussed in {{transmission-discussion}}.
 
-5. Various documents and registries say to submit requests via email,
-   but a web form exists for submitting requests, which has caused
+6. Various documents and registries said to submit requests via email,
+   but a web form exists for submitting requests, which caused
    some confusion around which is to be used.  This is discussed
    in {{iana}}.
 
@@ -158,8 +195,8 @@ type is conceptually a subclass of another interface type, as far
 as a management data model is concerned.
 
 PROPOSED CLARIFICATION/ELABORATION:
-The intent of an interface type or sub-type is that its definition should
-be sufficient to identify an interoperable protocol.   In some cases,
+In general, the intent of an interface type or sub-type is that its definition should
+be sufficient to identify an interoperable protocol.   In some cases, however,
 a protocol might be defined in a way that is not sufficient to provide
 interoperability with other compliant implementations of that protocol.
 In such a case, an ifType definition should discuss whether specific
@@ -175,10 +212,55 @@ specific information (i.e., a lower sub-layer or a subtype), as well
 as the Designated Expert that must review requests for any such
 ifTypes or sub-types.
 
+# Available Formats {#formats}
+
+Many registries are available in multiple formats.  For example,
+XML, HTML, CSV, and Plain text are common formats in which many registries
+are available.  This document clarifies that MIB modules and YANG modules
+are merely two additional formats in which the ifType and tunnelType
+formats are available.   They are not separate registries, and the same
+values are always present in all formats of the same registry.
+
+CURRENT: This confusion stems in part due to the fact that the IANA "Protocol Registries"
+{{protocol-registries}} lists the YANG and MIB module formats separately,
+as if they were separate registries. However, the entries for the
+iana-if-type and iana-tunnel-type YANG modules say "See ifType definitions registry."
+and "See tunnelType registry (mib-2.interface.ifTable.ifEntry.ifType.tunnelType)."
+respectively, and the entry for the IANAifType-MIB has no such note.
+
+PROPOSED: It is proposed to clarify the relationship for the ifType and
+tunnelType registries as follows:
+
+1. Add the following note to the entry for the IANAifType-MIB at {{protocol-registries}}:
+  "This is one of the available formats of the ifType and tunnelType registries."
+
+2. Change the note on the entry for the iana-if-type YANG module at {{protocol-registries}} to read:
+  "This is one of the available formats of the ifType registry."
+
+3. Change the note on the entry for the iana-tunnel-type YANG module at {{protocol-registries}} to read:
+  "This is one of the available formats of the tunnelType registry."
+
+4. Create a section for "Interface Parameters" at {{protocol-registries}}, with entries for
+   "Interface Types (ifType)" {{ifType}}, "Tunnel Types (tunnelType)" {{tunnelType}},
+   and "Transmission Values" {{transmission}}.
+
+5. Update the ifType definitions registry {{ifType}} to list MIB {{IANAifType-MIB}}
+   and YANG {{iana-if-type}} as Available Formats.
+
+6. Update the tunnelType definitions registry {{tunnelType}} to list MIB {{IANAifType-MIB}}
+   and YANG {{iana-tunnel-type}} as Available Formats.
+
+7. Replace the {{iana-if-type}} page with the YANG module content, rather than having
+   a page that itself claims to have multiple Available Formats.
+
+8. Replace the {{iana-tunnel-type}} page with the YANG module content, rather than having
+   a page that itself claims to have multiple Available Formats.
+
 # Registration
 
-The IANA policy (using terms defined in {{!RFC5226}}) for registration is
-Expert Review.  The role of the Designated Expert in the procedure is to
+The IANA policy (using terms defined in {{!RFC8126}}) for registration is
+Expert Review, for both Interface Types and Tunnel Types.  The role of the 
+Designated Expert in the procedure is to
 raise possible concerns about wider implications of proposals for use and
 deployment of interface types.  While it is recommended that the responsible
 Area Director and the IESG take into consideration the Designated
@@ -188,7 +270,7 @@ consensus.
 
 ## Procedures {#procedures}
 
-Someone wishing to register a new ifType value MUST:
+Someone wishing to register a new ifType or tunnelType value MUST:
 
 1. Check the IANA registry to see whether there is already an entry that could
    easily satisfy the modeling and functional requirements for the requested entry.
@@ -210,7 +292,8 @@ Someone wishing to register a new ifType value MUST:
    under the guidelines of {{!RFC5378}}.
 
 4. Submit the registration request (or pointer to document containing it)
-   to IANA at iana@iana.org or via the web form at <https://www.iana.org/form/iftype>.
+   to IANA at iana@iana.org or (if requesting an ifType) via the web form
+   at <https://www.iana.org/form/iftype>.
 
 Upon receipt of a registration request, the following steps MUST be followed:
 
@@ -224,18 +307,20 @@ Upon receipt of a registration request, the following steps MUST be followed:
 3. The Designated Expert will evaluate the request against the criteria.
 
 4. Once the Designated Expert approves registration, IANA updates {{ifType}},
-   {{IANAifType-MIB}}, and {{iana-if-type}} to show the registration.
-   When adding values to the IANAifType-MIB, IANA should verify that the updated
-   MIB module is syntactically correct before publishing the update.  There are
+   {{IANAifType-MIB}}, and {{iana-if-type}} to show the registration for an Interface Type,
+   or {{tunnelType}}, {{IANAifType-MIB}}, and {{iana-tunnel-type}} to show the registration
+   for a Tunnel Type.
+   When adding values, IANA should verify that the updated
+   MIB module and YANG module formats are syntactically correct before publishing the update.  There are
    various existing tools or web sites that can be used to do this verification.
 
 5. If instead the Designated Expert
    does not approve registration (e.g., for any of the reasons in
-   {{RFC5226}} section 3), a registrant can resubmit a corrected request
+   {{RFC8126}} section 3), a registrant can resubmit a corrected request
    if desired, or the IESG can override the Designated Expert and approve
-   it per the process in Section 5.3 of {{RFC5226}}.
+   it per the process in Section 5.3 of {{RFC8126}}.
 
-## Media-specific OID-subtree assignments {#transmission}
+## Media-specific OID-subtree assignments {#transmission-discussion}
 
 The current IANAifType-MIB notes:
 
@@ -265,12 +350,13 @@ Expert Review. (2) The transmision numbering space is not scarce, so there seems
 little need to reserve the number for a different purpose than what the ifType
 is for. (3) The Designated Expert need not review whether a transmission
 number value should be registered when processing each ifType request, thus
-reducing the possibility of delaying assignment of ifType values.
+reducing the possibility of delaying assignment of ifType values. (4) There
+is no case on record where allocating the same value could have caused any problem.
 
 ## Registration Template {#template}
 
 This template describes the fields that MUST be supplied in a registration request
-suitable for adding to the registry:
+suitable for adding to the ifType registry:
 
 Label for IANA ifType requested:
 : As explained in Section 7.1.1 of {{!RFC2578}}, a label for a named-number enumeration
@@ -311,8 +397,7 @@ This entire document is about IANA considerations.
 
 CURRENT:
 The registries say to use email, but a web form exists (https://www.iana.org/form/iftype),
-which is an apparent contradiction.  Should IANA require using the form?  
-Or require using email?  Or accept submisions either way?
+which is an apparent contradiction.
 
 PROPOSED:
 In addition, IANA is requested to make the following changes:
