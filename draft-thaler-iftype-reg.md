@@ -67,7 +67,7 @@ informative:
   tunnelType:
     author:
       org: IANA
-    title: "tunnelType definitions"
+    title: "Internet-standard MIB - mib-2.interface.ifTable.ifEntry.ifType.tunnelType"
     date: 2019-06-25
     target: https://www.iana.org/assignments/smi-numbers/smi-numbers.xhtml#smi-numbers-6
   transmission:
@@ -81,10 +81,9 @@ informative:
 
 The registration and use of interface types ("ifType" values) predated
 the use of IANA Considerations sections and YANG modules, and so
-confusion has arisen about the interface type allocation process.  
-Tunnel types were then added later, with the same requirements and allocation policy as
-interface types.
-This document provides
+confusion has arisen about the interface type allocation process. Tunnel
+types were then added later, with the same requirements and allocation policy as
+interface types. This document provides
 updated guidelines for the definition of new interface types and tunnel types, for consideration
 by those who are defining, registering, or evaluating those definitions.
 
@@ -111,10 +110,10 @@ as parts of a unique identifier of a data model for a given
 interface type (e.g., in an OID), or simply as values exposed by local
 APIs or UI on a device.
 
-The TUNNEL-MIB was originally defined in {{?RFC2667}} (now obsoleted by {{?RFC4087}})
-which created an IANAtunnelType registry ({{tunnelType}} and the IANAtunnelType textual
+The TUNNEL-MIB was then defined in {{?RFC2667}} (now obsoleted by {{?RFC4087}})
+which created a tunnelType registry ({{tunnelType}} and the IANAtunnelType textual
 convention at {{IANAifType-MIB}}) and defined the assignment policy
-for IANAtunnelType values to always be identical to the policy for assigning ifType values.
+for tunnelType values to always be identical to the policy for assigning ifType values.
 
 # Terminology
 
@@ -138,12 +137,12 @@ This document addresses the following issues:
    This is discussed in {{sublayers}}.
 
 3. Since the ifType and tunnelType registries were originally defined, and are
-   still retrievable in the format of MIB modules (in addition to other formats),
+   still retrievable, in the format of MIB modules (in addition to other formats),
    confusion arose when adding YANG modules as another format, as to whether
    each format is a separate registry.  This is discussed in {{formats}}.
 
 4. The registries are retrievable in the format of MIB and YANG modules, but
-   there was no process guidance written to check that the formats were
+   there was no process guidance written to check that those formats were
    syntactically correct as updates were made, which led to the registry having syntax errors
    that broke tools.  {{procedures}} adds a validation step to the
    documented assignment procedure.
@@ -153,7 +152,7 @@ This document addresses the following issues:
    must ask for it or not, and the request form has no such required field.
    As a result, IANA has asked the Designated Expert to decide for each
    allocation, but no relevant guidance for the Designated Expert has been
-   documented. This is discussed in {{transmission-discussion}}.
+   documented. This is remedied in {{transmission-discussion}}.
 
 6. Various documents and registries said to submit requests via email,
    but a web form exists for submitting requests, which caused
@@ -175,7 +174,7 @@ phrased in a way that is now too restrictive, since at the time
 This document clarifies that such guidance also applies to YANG modules.
 
 Some ifTypes may define sub-types.  For example, the tunnel(131) ifType
-defines sub-types, where each IANAtunnelType can have its own MIB and/or YANG
+defines sub-types, where each tunnelType can have its own MIB and/or YANG
 module with protocol-specific information, but there is enough in common
 that some information is exposed in a generic IP Tunnel MIB corresponding
 to the tunnel(131) ifType.
@@ -194,7 +193,7 @@ A sub-type can be used when neither of these are true, but where one interface
 type is conceptually a subclass of another interface type, as far
 as a management data model is concerned.
 
-PROPOSED CLARIFICATION/ELABORATION:
+NEW CLARIFICATION/ELABORATION:
 In general, the intent of an interface type or sub-type is that its definition should
 be sufficient to identify an interoperable protocol.   In some cases, however,
 a protocol might be defined in a way that is not sufficient to provide
@@ -221,7 +220,7 @@ are merely two additional formats in which the ifType and tunnelType
 formats are available.   They are not separate registries, and the same
 values are always present in all formats of the same registry.
 
-CURRENT: This confusion stems in part due to the fact that the IANA "Protocol Registries"
+CURRENT: The confusion stems in part due to the fact that the IANA "Protocol Registries"
 {{protocol-registries}} lists the YANG and MIB module formats separately,
 as if they were separate registries. However, the entries for the
 yang-if-type and iana-tunnel-type YANG modules say "See ifType definitions registry."
@@ -336,16 +335,15 @@ The current IANAifType-MIB notes:
 >   specific relationship between ifType values and
 >   transmission subtree OIDs.
 
-The following change is proposed:
+The following change is to be made:
 
-CURRENT: For every ifType registration, the corresponding transmission 
+OLD: For every ifType registration, the corresponding transmission 
 number value should be registered or marked "Reserved."
 
-PROPOSED:
-For future ifType assignments, an OID-subtree assignment MIB-II's
+NEW: For future ifType assignments, an OID-subtree assignment MIB-II's
 'transmission' subtree will be made with the same value.
 
-RATIONALE: (1) This saves effort in the future since if a transmission number
+Rationale: (1) This saves effort in the future since if a transmission number
 is later needed, no IANA request is needed that would then require another
 Expert Review. (2) The transmision numbering space is not scarce, so there seems
 little need to reserve the number for a different purpose than what the ifType
@@ -392,16 +390,12 @@ Reference, Internet-Draft, or Specification:
 Additional information or comments:
 : Optionally any additional comments for IANA or the Designated Expert.
 
-# IANA Considerations {#iana}
+# Submitting Requests {#iana}
 
-This entire document is about IANA considerations.  
-
-CURRENT:
 The registries say to use email, but a web form exists (https://www.iana.org/form/iftype),
 which is an apparent contradiction, but submissions either way are accepted.
 
-PROPOSED:
-In addition, IANA is requested to make the following changes:
+IANA is requested to make the following changes:
 
 1. {{IANAifType-MIB}} currently says:
    "Requests for new values should be made to IANA via email (iana&iana.org)."
@@ -414,6 +408,10 @@ In addition, IANA is requested to make the following changes:
    This should be updated to instead say:
    "Requests for new values should be made at <https://www.iana.org/form/iftype>
    or by email (iana&iana.org)."
+
+# IANA Considerations
+
+This entire document is about IANA considerations.  
 
 # Security Considerations
 
