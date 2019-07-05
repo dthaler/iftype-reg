@@ -46,13 +46,13 @@ informative:
     title: "IANAifType-MIB"
     date: 2019-02-08
     target: http://www.iana.org/assignments/ianaiftype-mib
-  iana-if-type:
+  yang-if-type:
     author:
       org: IANA
     title: "iana-if-type YANG Module"
     date: 2019-02-08
     target: http://www.iana.org/assignments/iana-if-type
-  iana-tunnel-type:
+  yang-tunnel-type:
     author:
       org: IANA
     title: "iana-tunnel-type YANG Module"
@@ -100,7 +100,7 @@ RFC no longer contains the IANA IfType-MIB. Instead, the IANA IfType-MIB is
 now maintained as a separate module.  Similarly, {{?RFC7224}} created an initial
 IANA Interface Type YANG Module, and the current version is maintained by IANA.
 
-The current IANA IfType registry is in {{iana-if-type}}, {{ifType}}, and the IANAifType textual
+The current IANA IfType registry is in {{yang-if-type}}, {{ifType}}, and the IANAifType textual
 convention at {{IANAifType-MIB}}.
 
 Although the ifType registry was originally defined in a MIB module,
@@ -224,7 +224,7 @@ values are always present in all formats of the same registry.
 CURRENT: This confusion stems in part due to the fact that the IANA "Protocol Registries"
 {{protocol-registries}} lists the YANG and MIB module formats separately,
 as if they were separate registries. However, the entries for the
-iana-if-type and iana-tunnel-type YANG modules say "See ifType definitions registry."
+yang-if-type and iana-tunnel-type YANG modules say "See ifType definitions registry."
 and "See tunnelType registry (mib-2.interface.ifTable.ifEntry.ifType.tunnelType)."
 respectively, and the entry for the IANAifType-MIB has no such note.
 
@@ -245,15 +245,16 @@ tunnelType registries as follows:
    and "Transmission Values" {{transmission}}.
 
 5. Update the ifType definitions registry {{ifType}} to list MIB {{IANAifType-MIB}}
-   and YANG {{iana-if-type}} as Available Formats.
+   and YANG {{yang-if-type}} as Available Formats.
 
 6. Update the tunnelType definitions registry {{tunnelType}} to list MIB {{IANAifType-MIB}}
-   and YANG {{iana-tunnel-type}} as Available Formats.
+   and YANG {{yang-tunnel-type}} as Available Formats, and change the title to
+   "tunnelType Definitions" for consistency with the {{ifType}} title.
 
-7. Replace the {{iana-if-type}} page with the YANG module content, rather than having
+7. Replace the {{yang-if-type}} page with the YANG module content, rather than having
    a page that itself claims to have multiple Available Formats.
 
-8. Replace the {{iana-tunnel-type}} page with the YANG module content, rather than having
+8. Replace the {{yang-tunnel-type}} page with the YANG module content, rather than having
    a page that itself claims to have multiple Available Formats.
 
 # Registration
@@ -307,8 +308,8 @@ Upon receipt of a registration request, the following steps MUST be followed:
 3. The Designated Expert will evaluate the request against the criteria.
 
 4. Once the Designated Expert approves registration, IANA updates {{ifType}},
-   {{IANAifType-MIB}}, and {{iana-if-type}} to show the registration for an Interface Type,
-   or {{tunnelType}}, {{IANAifType-MIB}}, and {{iana-tunnel-type}} to show the registration
+   {{IANAifType-MIB}}, and {{yang-if-type}} to show the registration for an Interface Type,
+   or {{tunnelType}}, {{IANAifType-MIB}}, and {{yang-tunnel-type}} to show the registration
    for a Tunnel Type.
    When adding values, IANA should verify that the updated
    MIB module and YANG module formats are syntactically correct before publishing the update.  There are
@@ -408,7 +409,7 @@ In addition, IANA is requested to make the following changes:
    "Requests for new values should be made at <https://www.iana.org/form/iftype>
    or by email (iana&iana.org)."
 
-2. {{iana-if-type}} currently says:
+2. {{yang-if-type}} currently says:
    "Requests for new values should be made to IANA via email (iana&iana.org)."
    This should be updated to instead say:
    "Requests for new values should be made at <https://www.iana.org/form/iftype>
