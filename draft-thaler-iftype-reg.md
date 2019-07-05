@@ -397,7 +397,7 @@ This entire document is about IANA considerations.
 
 CURRENT:
 The registries say to use email, but a web form exists (https://www.iana.org/form/iftype),
-which is an apparent contradiction.
+which is an apparent contradiction, but submissions either way are accepted.
 
 PROPOSED:
 In addition, IANA is requested to make the following changes:
