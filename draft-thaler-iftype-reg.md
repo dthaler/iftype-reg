@@ -211,13 +211,51 @@ specific information (i.e., a lower sub-layer or a subtype), as well
 as the Designated Expert that must review requests for any such
 ifTypes or sub-types.
 
+## Alternate Values
+
+Another design decision is whether to reuse an existing ifType or tunnelType
+value, possibly using a sub-type or sub-layer model for refinements, or
+to use a different value for a new mechanism.
+
+If there is already an entry that could easily satisfy the modeling and functional
+requirements for the requested entry, it should be reused so that
+applications and tools that use the existing value can be used without changes.
+If however, the modeling and functional requirements are significantly different
+enough such that having existing applications and tools use the existing value
+would be seen as a problem, a new value should be used.
+
+For example, originally multiple ifType values were used for different
+flavors of Ethernet (ethernetCsmacd(6), iso88023Csmacd(7), fastEther(62), etc.),
+typically because they were registered by multiple vendors.  {{?RFC3635}}
+then deprecated all but ethernetCsmacd(6), since using different values
+was seen as problematic since all were functionally similar.
+
+As another example, the Teredo tunnel protocol {{?RFC4380}} encapsulates
+packets over UDP, and a udp(8) tunnelType value was defined in {{?RFC2667}},
+with the description "The value UDP indicates that the payload packet is 
+encapsulated within a normal UDP packet (e.g., RFC 1234)."  However, the
+protocol model is quite different between {{?RFC1234}} and Teredo.  For
+example, {{?RFC1234}} supports encapsulation of multicast/broadcast traffic
+whereas Teredo does not.  As such, it would be more confusing to applications
+and tools to represent them using the same tunnel type, and so {{?RFC4087}}
+defined a new value for Teredo.  
+
+In summary, definers of new interface or tunnel mechanisms should use a new ifType or
+tunnelType value rather than reusing an existing value when key aspects such
+as the header format or the link model (point-to-point, non-broadcast multi-access,
+broadcast capable multi-access, unidirectional broadcast, etc.) are significantly 
+different from existing values, but reuse the same value when the differences
+can be expressed in terms of differing values of existing objects, other than 
+ifType/tunnelType, in the standard YANG or MIB module.
+
 # Available Formats {#formats}
 
 Many registries are available in multiple formats.  For example,
 XML, HTML, CSV, and Plain text are common formats in which many registries
-are available.  This document clarifies that MIB modules and YANG modules
-are merely two additional formats in which the ifType and tunnelType
-formats are available.   They are not separate registries, and the same
+are available.  This document clarifies that the {{IANAifType-MIB}},
+{{yang-if-type}}, and {{yang-tunnel-type}} MIB and YANG modules
+are merely additional formats in which the ifType and tunnelType
+formats are available.  They are not separate registries, and the same
 values are always present in all formats of the same registry.
 
 CURRENT: The confusion stems in part due to the fact that the IANA "Protocol Registries"
