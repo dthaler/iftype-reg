@@ -255,7 +255,7 @@ XML, HTML, CSV, and Plain text are common formats in which many registries
 are available.  This document clarifies that the {{IANAifType-MIB}},
 {{yang-if-type}}, and {{yang-tunnel-type}} MIB and YANG modules
 are merely additional formats in which the ifType and tunnelType
-formats are available.  They are not separate registries, and the same
+registries are available.  The MIB and YANG modules are not separate registries, and the same
 values are always present in all formats of the same registry.
 
 CURRENT: The confusion stems in part due to the fact that the IANA "Protocol Registries"
