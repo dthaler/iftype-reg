@@ -263,7 +263,7 @@ CURRENT: The confusion stems in part due to the fact that the IANA "Protocol Reg
 as if they were separate registries. However, the entries for the
 yang-if-type and iana-tunnel-type YANG modules say "See ifType definitions registry."
 and "See tunnelType registry (mib-2.interface.ifTable.ifEntry.ifType.tunnelType)."
-respectively, and the entry for the IANAifType-MIB has no such note.
+respectively, although the entry for the IANAifType-MIB has no such note.
 
 PROPOSED: It is proposed to clarify the relationship for the ifType and
 tunnelType registries as follows:
