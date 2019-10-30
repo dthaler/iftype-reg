@@ -1,7 +1,7 @@
 ---
 title: Guidelines and Registration Procedures for Interface Types and Tunnel Types
 abbrev: ifType Guidelines
-docname: draft-thaler-iftype-reg-04
+docname: draft-thaler-iftype-reg-05
 category: std
 updates: 2863
 
@@ -83,7 +83,7 @@ The registration and use of interface types ("ifType" values) predated
 the use of IANA Considerations sections and YANG modules, and so
 confusion has arisen about the interface type allocation process. Tunnel
 types were then added later, with the same requirements and allocation policy as
-interface types. This document provides
+interface types. This document updates RFC 2863, and provides
 updated guidelines for the definition of new interface types and tunnel types, for consideration
 by those who are defining, registering, or evaluating those definitions.
 
@@ -193,7 +193,6 @@ A sub-type can be used when neither of these are true, but where one interface
 type is conceptually a subclass of another interface type, as far
 as a management data model is concerned.
 
-NEW CLARIFICATION/ELABORATION:
 In general, the intent of an interface type or sub-type is that its definition should
 be sufficient to identify an interoperable protocol.   In some cases, however,
 a protocol might be defined in a way that is not sufficient to provide
@@ -258,15 +257,15 @@ are merely additional formats in which the ifType and tunnelType
 registries are available.  The MIB and YANG modules are not separate registries, and the same
 values are always present in all formats of the same registry.
 
-CURRENT: The confusion stems in part due to the fact that the IANA "Protocol Registries"
-{{protocol-registries}} lists the YANG and MIB module formats separately,
+The confusion stemmed in part from the fact that the IANA "Protocol Registries"
+{{protocol-registries}} listed the YANG and MIB module formats separately,
 as if they were separate registries. However, the entries for the
-yang-if-type and iana-tunnel-type YANG modules say "See ifType definitions registry."
+yang-if-type and iana-tunnel-type YANG modules said "See ifType definitions registry."
 and "See tunnelType registry (mib-2.interface.ifTable.ifEntry.ifType.tunnelType)."
-respectively, although the entry for the IANAifType-MIB has no such note.
+respectively, although the entry for the IANAifType-MIB had no such note.
 
-PROPOSED: It is proposed to clarify the relationship for the ifType and
-tunnelType registries as follows:
+This document clarifies the relationship for the ifType and
+tunnelType registries with the following actions:
 
 1. Add the following note to the entry for the IANAifType-MIB at {{protocol-registries}}:
   "This is one of the available formats of the ifType and tunnelType registries."
@@ -420,7 +419,7 @@ Description of the proposed use of the IANA ifType:
     name or acronym is xxx, then the ifType label would be something like
     xxxSomeIfTypeLabel.) 
 
-  * (NEW) Would your ifType require or allow vendor-specific extensions?  If so,
+  * Would your ifType require or allow vendor-specific extensions?  If so,
     would the vendor use their own ifType in a sub-layer below the requested ifType,
     or a sub-type of the ifType, or some other mechanism?
 
@@ -432,10 +431,11 @@ Additional information or comments:
 
 ### tunnelType
 
-CURRENT: No form exists for tunnelType, and it is not enforced that new requests
-have to use the ifType form.
+Prior to this document, no form existed for tunnelType (and new tunnelType requests did not
+need to use the ifType form that did exist). This document therefore specifies a tunnelType
+form.
 
-PROPOSED: The following template describes the fields that MUST be supplied in a 
+The following template describes the fields that MUST be supplied in a 
 registration request suitable for adding to the tunnelType registry:
 
 Label for IANA tunnelType requested:
@@ -473,7 +473,7 @@ Additional information or comments:
 
 # Submitting Requests {#iana}
 
-{{IANAifType-MIB}} currently says:
+At the time of this writing, {{IANAifType-MIB}} said:
 "Requests for new values should be made to IANA via email (iana&iana.org)."
 However, a web form exists (https://www.iana.org/form/iftype),
 which is an apparent contradiction, but submissions either way are accepted.
