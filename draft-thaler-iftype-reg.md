@@ -1,7 +1,7 @@
 ---
 title: Guidelines and Registration Procedures for Interface Types and Tunnel Types
 abbrev: ifType Guidelines
-docname: draft-thaler-iftype-reg-05
+docname: draft-thaler-iftype-reg-06
 category: std
 updates: 2863
 
@@ -227,7 +227,7 @@ For example, originally multiple ifType values were used for different
 flavors of Ethernet (ethernetCsmacd(6), iso88023Csmacd(7), fastEther(62), etc.),
 typically because they were registered by multiple vendors.  {{?RFC3635}}
 then deprecated all but ethernetCsmacd(6), since using different values
-was seen as problematic since all were functionally similar.
+was seen as problematic because all were functionally similar.
 
 As another example, the Teredo tunnel protocol {{?RFC4380}} encapsulates
 packets over UDP, and a udp(8) tunnelType value was defined in {{?RFC2667}},
@@ -359,7 +359,7 @@ Upon receipt of a registration request, the following steps MUST be followed:
 
 ## Media-specific OID-subtree assignments {#transmission-discussion}
 
-The current IANAifType-MIB notes:
+{{IANAifType-MIB}} notes:
 
 >   The relationship between the assignment of ifType
 >   values and of OIDs to particular media-specific MIBs
@@ -372,7 +372,8 @@ The current IANAifType-MIB notes:
 >   specific relationship between ifType values and
 >   transmission subtree OIDs.
 
-The following change is to be made:
+The advice to implementors remains unchanged, but the allocation procedures
+are changed to streamline the process. {{ifType-registry}} is updated as follows:
 
 OLD: For every ifType registration, the corresponding transmission 
 number value should be registered or marked "Reserved."
@@ -388,6 +389,13 @@ is for. (3) The Designated Expert need not review whether a transmission
 number value should be registered when processing each ifType request, thus
 reducing the possibility of delaying assignment of ifType values. (4) There
 is no case on record where allocating the same value could have caused any problem.
+
+Similarly, the following change is made to {{transmission-registry}}, with a similar rationale:
+
+OLD: For every transmission number registration, the corresponding
+ifType value should be registered or marked "Reserved."
+
+NEW: For future transmission number assignments, an 'ifType' will be made with the same value.
 
 ## Registration Template {#template}
 
