@@ -147,17 +147,17 @@ This document addresses the following issues:
    that broke tools.  {{procedures}} adds a validation step to the
    documented assignment procedure.
 
-5. Transmission values {{transmission-registry}} have often been allocated as part
+4. Various documents and registries said to submit requests via email,
+   but a web form exists for submitting requests, which caused
+   some confusion around which was to be used.  This is addressed
+   in {{procedures}}.
+
+6. Transmission values {{transmission-registry}} have often been allocated as part
    of ifType allocation, but no guidance exists about whether a requester
    must ask for it or not, and the request form has no such required field.
    As a result, IANA has asked the Designated Expert to decide for each
    allocation, but no relevant guidance for the Designated Expert has been
    documented. This is remedied in {{transmission-discussion}}.
-
-6. Various documents and registries said to submit requests via email,
-   but a web form exists for submitting requests, which caused
-   some confusion around which is to be used.  This is discussed
-   in {{iana}}.
 
 # Interface Sub-Layers and Sub-Types {#sublayers}
 
@@ -479,20 +479,6 @@ Reference, Internet-Draft, or Specification:
 Additional information or comments:
 : Optionally any additional comments for IANA or the Designated Expert.
 
-# Submitting Requests {#iana}
-
-At the time of this writing, {{IANAifType-MIB}} said:
-"Requests for new values should be made to IANA via email (iana&iana.org)."
-However, a web form exists (https://www.iana.org/form/iftype),
-which is an apparent contradiction, but submissions either way are accepted.
-
-IANA is requested to update the MIB module to instead say:
-"Interface types must not be directly added to the IANAifType-MIB MIB module.
-They must instead be added to the "ifType definitions" registry at
-{{ifType-registry}}."
-
-(Note that {{yang-if-type}} was previously updated with this language.)
-
 # IANA Considerations
 
 This entire document is about IANA considerations.  
@@ -510,7 +496,7 @@ In summary, there are three registries affected:
 3. transmission numbers {{transmission-registry}}: 
     The assignment process is updated in {{transmission-discussion}}.
 
-Furthermore, {{formats}} and {{iana}} clarified that the following are not registries in
+Furthermore, {{formats}} clarified that the following are not registries in
 which values can be directly assigned, but are merely alternate formats
 of other registries above, and specified changes to the relevant pages:
 
@@ -523,10 +509,24 @@ of other registries above, and specified changes to the relevant pages:
 3. {{yang-tunnel-type}}: This is an alternate format of the
     {{tunnelType-registry}} registry.
 
+In addition {{IANAifType-MIB}} is to be updated as follows:
+
+OLD: Requests for new values should be made to IANA via email (iana@iana.org).
+
+NEW: Interface types must not be directly added to the IANAifType-MIB MIB module.
+They must instead be added to the "ifType definitions" registry at
+{{ifType-registry}}.
+
+(Note that {{yang-if-type}} was previously updated with this language.)
+
 # Security Considerations
 
 Since this document does not introduce any technology or protocol,
 there are no security issues to be considered for this document
 itself.
+
+For security considerations related to MIB and YANG modules that
+expose these values, see Section 9 of {{RFC2863}}, Section 6 of {{RFC4087}}, 
+and Section 3 of {{?I-D.ietf-softwire-iftunnel}}.
 
 --- back
