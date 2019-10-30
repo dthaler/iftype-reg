@@ -497,6 +497,32 @@ They must instead be added to the "ifType definitions" registry at
 
 This entire document is about IANA considerations.  
 
+In summary, there are three registries affected:
+
+1. ifType definitions {{ifType-registry}}: The registration process
+    is updated in {{procedures}}.
+    Additional advice to registrants and Designated Experts
+    is provided in {{sublayers}}.
+
+2. tunnelType definitions {{tunnelType-registry}}: The registration
+    process is updated in {{procedures}}.
+
+3. transmission numbers {{transmission-registry}}: 
+    The assignment process is updated in {{transmission-discussion}}.
+
+Furthermore, {{formats}} and {{iana}} clarified that the following are not registries in
+which values can be directly assigned, but are merely alternate formats
+of other registries above, and specified changes to the relevant pages:
+
+1. {{IANAifType-MIB}}: This is an alternate format of the
+    {{ifType-registry}} and {{tunnelType-registry}} registries.
+
+2. {{yang-if-type}}: This is an alternate format of the
+    {{ifType-registry}} registry.
+
+3. {{yang-tunnel-type}}: This is an alternate format of the
+    {{tunnelType-registry}} registry.
+
 # Security Considerations
 
 Since this document does not introduce any technology or protocol,
