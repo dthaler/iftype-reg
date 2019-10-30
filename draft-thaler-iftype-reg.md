@@ -2,7 +2,7 @@
 title: Guidelines and Registration Procedures for Interface Types and Tunnel Types
 abbrev: ifType Guidelines
 docname: draft-thaler-iftype-reg-06
-category: std
+category: bcp
 updates: 2863
 
 ipr: trust200902
