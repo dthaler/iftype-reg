@@ -326,9 +326,9 @@ Upon receipt of a registration request, the following steps MUST be followed:
 
 5. If instead the Designated Expert
    does not approve registration (e.g., for any of the reasons in
-   {{RFC8126}} section 3), a registrant can resubmit a corrected request
+   {{RFC8126}} section 5), a registrant can resubmit a corrected request
    if desired, or the IESG can override the Designated Expert and approve
-   it per the process in Section 5.3 of {{RFC8126}}.
+   it per the process in Section 3.3 of {{RFC8126}}.
 
 ## Media-specific OID-subtree assignments {#transmission-discussion}
 
