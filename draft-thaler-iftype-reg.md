@@ -1,7 +1,7 @@
 ---
 title: Guidelines and Registration Procedures for Interface Types and Tunnel Types
 abbrev: ifType Guidelines
-docname: draft-thaler-iftype-reg-06
+docname: draft-thaler-iftype-reg-07
 category: bcp
 updates: 2863
 
@@ -133,7 +133,7 @@ This document addresses the following issues:
    when using YANG modules.  This document clarifies that ifTypes and tunnelTypes are
    independent from the type of, or even existence of, a data model.
 
-2. The use of, and requirements around, sub-layers and sub-types
+2. The use of and requirements around sub-layers and sub-types
    were not well understood, but good examples of both now exist.
    This is discussed in {{sublayers}}.
 
@@ -295,7 +295,7 @@ Someone wishing to register a new ifType or tunnelType value MUST:
 
 3. Prepare a registration request using the template specified in {{template}}.
    The registration request can be contained in an Internet-Draft, submitted
-   alone, or as part of some other permanently available, stable,
+   alone, or as part of some other permanently available, stable
    specification.  The registration request can also be submitted in some
    other form (as part of another document or as a stand-alone document),
    but the registration request will be treated as an "IETF Contribution"
@@ -303,7 +303,7 @@ Someone wishing to register a new ifType or tunnelType value MUST:
 
 4. Submit the registration request (or pointer to a document containing it)
    to IANA at iana@iana.org or (if requesting an ifType) via the web form
-   at <https://www.iana.org/form/iftype>.
+   at \<https://www.iana.org/form/iftype\>.
 
 Upon receipt of a registration request, the following steps MUST be followed:
 
@@ -351,7 +351,7 @@ with the same value will be assigned at the same time.
 
 Rationale: (1) This saves effort in the future since if a transmission number
 is later needed, no IANA request is needed that would then require another
-Expert Review. (2) The transmision numbering space is not scarce, so there seems
+Expert Review. (2) The transmission numbering space is not scarce, so there seems
 little need to reserve the number for a different purpose than what the ifType
 is for. (3) The Designated Expert need not review whether a transmission
 number value should be registered when processing each ifType request, thus
@@ -428,7 +428,7 @@ Description of the proposed use of the IANA tunnelType:
   * Would your tunnelType be vendor-specific or proprietary? (If so, the label
     MUST start with a string that shows that. For example, if your company's
     name or acronym is xxx, then the tunnelType label would be something like
-    xxxSomeIfTypeLabel.)
+    xxxSomeTunnelTypeLabel.)
 
   * Would your tunnelType require or allow vendor-specific extensions?  If so,
     would the vendor use their own tunnelType in a sub-layer below the requested tunnelType,
